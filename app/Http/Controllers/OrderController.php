@@ -20,11 +20,12 @@ class OrderController extends BaseSoapController
         return view('orders.index');
         */
         try {
-            self::setWsdl('http://192.168.2.201:85/WS/MBAToMobile.asmx');
+            self::setWsdl('http://192.168.2.201:85/WS/MBAToMobile.asmx?wsdl');
             $this->service = InstanceSoapClient::init();
-            $orders = $this->service->ObtenerPedidos(['pedido' => '17649']);
-            $pedidos = $this->loadXmlStringAsArray($orders->ObtenerPedidosResult);
-            dd($this->service);
+            //dd($this->service->__getFunctions());
+            $response = $this->service->ObtenerPedidos(['pedido' => '17650']);
+            //$orders = $this->loadXmlStringAsArray($response->ObtenerPedidosResult);
+            dd($response->ObtenerPedidosResult);
         }
         catch(\Exception $e) {
             return $e->getMessage();
